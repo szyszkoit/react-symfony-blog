@@ -1,74 +1,53 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-// Import routing components
-// Import custom components
-import Login from './components/Login.js'
-import Main from './components/Main.js'
-import Home from './components/Home.js'
-import About from './components/About.js'
-import Car from './components/Car.js'
-import CarDetails from './components/CarDetails.js'
-import {browserHistory, Router, Route, IndexRoute} from 'react-router';
+import AuthExample from './AuthExample.js';
+import Login from './components/Login.js';
+import Home from './components/Home/Home.js';
+import About from './components/About/About.js';
+import Car from './components/Home/Car.js';
+import CarDetails from './components/Home/CarDetails.js';
+import {Router, Route, IndexRoute, Link, browserHistory} from "react-router";
 
 const data = [
-  {
-    id: 1,
-    name: 'Honda Accord Crosstour',
-    year: '2010',
-    model: 'Accord Crosstour',
-    make: 'Honda',
-    media: 'http://media.ed.edmunds-media.com/honda/accord-crosstour/2010/oem/2010_honda_accord-crosstour_4dr-hatchback_ex-l_fq_oem_4_500.jpg',
-    price: '$16,811'
+    {
+        id: 1,
+        name: 'Honda Accord Crosstour',
+        year: '2010',
+        model: 'Accord Crosstour',
+        make: 'Honda',
+        media: 'http://media.ed.edmunds-media.com/honda/accord-crosstour/2010/oem/2010_honda_accord-crosstour_4dr-hatchback_ex-l_fq_oem_4_500.jpg',
+        price: '$16,811'
 
-  },
-  {
-    id: 2,
-    name: 'Mercedes-Benz AMG GT Coupe',
-    year: '2016',
-    model: 'AMG',
-    make: 'Mercedes Benz',
-    media: 'http://media.ed.edmunds-media.com/mercedes-benz/amg-gt/2016/oem/2016_mercedes-benz_amg-gt_coupe_s_fq_oem_1_717.jpg',
-    price: '$138,157'
-
-  },
-  {
-    id: 3,
-    name: 'BMW X6 SUV',
-    year: '2016',
-    model: 'X6',
-    make: 'BMW',
-    media: 'http://media.ed.edmunds-media.com/bmw/x6/2016/oem/2016_bmw_x6_4dr-suv_xdrive50i_fq_oem_1_717.jpg',
-    price: '$68,999'
-  },
-  {
-    id: 4,
-    name: 'Ford Edge SUV',
-    year: '2016',
-    model: 'Edge',
-    make: 'Ford',
-    media: 'http://media.ed.edmunds-media.com/ford/edge/2016/oem/2016_ford_edge_4dr-suv_sport_fq_oem_6_717.jpg',
-    price: '$36,275'
-  },
-  {
-    id: 5,
-    name: 'Dodge Viper Coupe',
-    year: '2017',
-    model: 'Viper',
-    make: 'Dodge',
-    media: 'http://media.ed.edmunds-media.com/dodge/viper/2017/oem/2017_dodge_viper_coupe_acr_fq_oem_3_717.jpg',
-    price: '$123,890'
-  }
+    }
 ];
+class App extends React.Component {
+    // constructor(){
+    //     super();
+    //     this.state = {
+    //         loginStatus: false
+    //     };
+    // }
+    // handleLogin1(loginStatus) {
+    //     this.setState({loginStatus: loginStatus});
+    // };
+    render(){
+        return(
+            <AuthExample/>
+        );
+    };
+}
+render(<App/>, document.getElementById('app'));
+// render((
+//     <Router history={browserHistory}>
+//         <Route component={App} path="app">
+//             <IndexRoute component={Home}/>
+//             <Route path="/" component={Home}/>
+//             <Route path="/cars" component={Car} data={data}/>
+//             <Route path="/cars/:id" component={CarDetails} data={data}/>
+//             <Route path="/about" component={About}/>
+//             <Route path="/login" component={Login} />
+//         </Route>
+//     </Router>
+// ),document.getElementById('app'));
 
-render(
-  <Router history={browserHistory}>
-    <Route component={Main} path="app">
-      <IndexRoute component={Home}/>
-      <Route path="/" component={Login}/>
-      <Route path="/cars" component={Car} data={data}/>
-      <Route path="/cars/:id" component={CarDetails} data={data}/>
-      <Route path="/about" component={About}/>
-    </Route>
-  </Router>,
-  document.getElementById('app')
-);
+

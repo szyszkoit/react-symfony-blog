@@ -1,48 +1,55 @@
 // ./components/Home.jsx
 import React, { Component } from 'react';
 
-class Login extends React.Component {
-  constructor() {
-    super();
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+class Login extends Component {
+    constructor() {
+        super();
+        this.state = {
+            redirectToReferrer: false
+        };
+        this.handleLogin = this.handleLogin.bind(this);
+    }
+    handleLogin(event) {
+        event.preventDefault();
+        console.log(this.props);
+        const data = new FormData(event.target);
+        $.ajax({
+            url: setData,
+            data: {
+                username: data.get('username'),
+                password: data.get('password')
+            },
+            success: function(){
+                alert('success');
+            },
+            error: function(){
+                alert('failure');
+            }
+        });
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const data = new FormData(event.target);
-    console.log(username, email, birthdate);
-    $.ajax({
-      type: 'POST',
-      url: setData,
-      data: {
-        username: data.get('username'),
-        email: data.get('email'),
-        birthdate: data.get('birthdate')
-      }
-    })
-      .done(function(data) {
-        console.log('ok');
-      })
-      .fail(function(jqXhr) {
-        console.log('failed to register');
-      });
-  }
+    };
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor="username">Enter username</label>
-        <input id="username" name="username" type="text" />
+    render() {
+        const { from } = this.props.location.state || { from: { pathname: "/" } };
+        const { redirectToReferrer } = this.state;
 
-        <label htmlFor="email">Enter your email</label>
-        <input id="email" name="email" type="email" />
+        if (redirectToReferrer) {
+            return <Redirect to={from} />;
+        }
 
-        <label htmlFor="birthdate">Enter your birth date</label>
-        <input id="birthdate" name="birthdate" type="text" />
-
-        <button>Send data!</button>
-      </form>
-    );
-  }
+        return (
+            <div>
+                <p>You must log in to view the page at {from.pathname}</p>
+                <form onSubmit={this.handleLogin}>
+                    <label htmlFor="username">Enter username</label>
+                    <input id="username" name="username" type="text" />
+                    <label htmlFor="password">Enter your password</label>
+                    <input id="password" name="password" type="password" />
+                    <button type="submit">Log in</button>
+                </form>
+            </div>
+        );
+    }
 }
-export default Login
+
+ export default Login

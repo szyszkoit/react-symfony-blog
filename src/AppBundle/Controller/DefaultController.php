@@ -34,12 +34,11 @@ class DefaultController extends Controller
     /**
      * @Route("/loginPage", name="loginPage")
      */
-    public function login(Request $request)
+    public function loginAction(Request $request)
     {
         $req = $request->request->all();
-
-        $req = json_decode($req["conversation"], true);
-
+        //$req = json_decode($req["username"], true);
+        var_dump($req);
         if (isset($req)) {
 
             $returnData = array("status" => "OK");
