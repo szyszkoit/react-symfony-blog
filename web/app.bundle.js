@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8cd86792efb21461f1fa"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "fd0bc13897bdf51565ec"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -6046,7 +6046,6 @@ var Login = function (_Component) {
         key: "handleLogin",
         value: function handleLogin(event) {
             event.preventDefault();
-            console.log(this.props);
             var self = this;
             var data = new FormData(event.target);
             $.ajax({
@@ -6057,6 +6056,7 @@ var Login = function (_Component) {
                     password: data.get('password')
                 },
                 success: function success(data) {
+                    console.log(data);
                     if (data) {
                         fakeAuth.authenticate(function () {
                             self.setState({ redirectToReferrer: true });

@@ -1,6 +1,6 @@
-login:
-    path:  /loginPage
-    defaults: { _controller: AppBundle:Default:login }
+loginPath:
+    path:  /login
+    defaults: { _controller: AppBundle:login:login }
     requirements:
         _method:  POST
 app:

@@ -31,20 +31,20 @@ class DefaultController extends Controller
     }
 
 
-    /**
-     * @Route("/loginPage", name="loginPage")
-     */
-    public function loginAction(Request $request)
-    {
-        $req = $request->request->all();
-        //$req = json_decode($req["username"], true);
-        var_dump($req);
-        if (isset($req)) {
-
-            $returnData = array("status" => "OK");
-            return new Response(json_encode($returnData, true), 200);
-
-
-        }
-    }
+//    /**
+//     * @Route("/loginPage", name="loginPage")
+//     */
+//    public function loginAction(Request $request)
+//    {
+//        $req = $request->request->all();
+//        //$req = json_decode($req["username"], true);
+//        var_dump($req);
+//        if (isset($req)) {
+//
+//            $returnData = array("status" => "OK");
+//            return new Response(json_encode($returnData, true), 200);
+//
+//
+//        }
+//    }
 }

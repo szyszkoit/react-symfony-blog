@@ -93,7 +93,6 @@ class Login extends Component {
     }
     handleLogin(event) {
         event.preventDefault();
-        console.log(this.props);
         const self = this;
         const data = new FormData(event.target);
         $.ajax({
@@ -104,6 +103,7 @@ class Login extends Component {
                 password: data.get('password')
             },
             success: function(data){
+                console.log(data);
                 if(data) {
                     fakeAuth.authenticate(() => {
                         self.setState({redirectToReferrer: true});
