@@ -37,7 +37,7 @@ class DefaultController extends Controller
 //    public function loginAction(Request $request)
 //    {
 //        $req = $request->request->all();
-//        //$req = json_decode($req["username"], true);
+//        $req = json_decode($req["username"], true);
 //        var_dump($req);
 //        if (isset($req)) {
 //

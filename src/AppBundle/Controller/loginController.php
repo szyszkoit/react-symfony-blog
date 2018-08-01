@@ -21,9 +21,10 @@ class loginController extends Controller
 
         $errors = $authenticationUtils->getLastAuthenticationError();
         $lastusername = $authenticationUtils->getLastUsername();
+        $req = $request->request->all();
+        //$req = json_decode($req["username"], true);
 
-
-        $returnData = array("errors" => $errors, "lastusername" => $lastusername);
+        $returnData = array("errors" => $errors->getMessageKey(), "lastusername" => $lastusername);
         return new Response(json_encode($returnData, true), 200);
 //        return $this->render('default/index.html.twig', array(
 //            'errors' => $errors,

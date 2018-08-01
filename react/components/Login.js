@@ -1,6 +1,11 @@
 // ./components/Home.jsx
 import React, { Component } from 'react';
 
+// import {withRouter} from "react-router-dom";
+// import fakeAuth from './Common/fakeAuth';
+
+
+
 class Login extends Component {
     constructor() {
         super();
@@ -11,16 +16,22 @@ class Login extends Component {
     }
     handleLogin(event) {
         event.preventDefault();
-        console.log(this.props);
+        const self = this;
         const data = new FormData(event.target);
         $.ajax({
+            type: 'POST',
             url: setData,
             data: {
                 username: data.get('username'),
                 password: data.get('password')
             },
-            success: function(){
-                alert('success');
+            success: function(data){
+                console.log(data);
+                // if(data) {
+                //     fakeAuth.authenticate(() => {
+                //         self.setState({redirectToReferrer: true});
+                //     });
+                // }
             },
             error: function(){
                 alert('failure');
