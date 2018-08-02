@@ -21,11 +21,40 @@ class loginController extends Controller
 
         $errors = $authenticationUtils->getLastAuthenticationError();
         $lastusername = $authenticationUtils->getLastUsername();
-        $req = $request->request->all();
-        //$req = json_decode($req["username"], true);
+        if($errors){
+            $errors = $errors->getMessageKey();
+            $returnData = array("errors" => $errors, "lastusername" => $lastusername);
+            return new Response(json_encode($returnData, true), 404);
+        }else{
+        //if($this->getUser()) {
+           //$user = $this->getUser()->getUserLogin();
+            $returnData = array("user" => 'admin');
+            return new Response(json_encode($returnData, true), 200);
+        //}
+        }
 
-        $returnData = array("errors" => $errors->getMessageKey(), "lastusername" => $lastusername);
-        return new Response(json_encode($returnData, true), 200);
+//        return $this->render('default/index.html.twig', array(
+//            'errors' => $errors,
+//            'lastusername' => $lastusername
+//        ));
+    }
+
+    /**
+     * @Route("/login-check", name="login-check")
+     */
+    public function loginCheckAction(Request $request, AuthenticationUtils $authenticationUtils)
+    {
+        if($this->getUser()) {
+            $user = $this->getUser()->getUserLogin();
+            $returnData = array("userLogin" => $user, 'loginStatus' => true);
+            return new Response(json_encode($returnData, true), 200);
+        }else{
+
+            $returnData = array("loginStatus" => false);
+            return new Response(json_encode($returnData, true), 404);
+            //}
+        }
+
 //        return $this->render('default/index.html.twig', array(
 //            'errors' => $errors,
 //            'lastusername' => $lastusername
