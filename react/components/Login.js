@@ -1,6 +1,20 @@
 // ./components/Home.jsx
 import React, { Component } from 'react';
-
+import {
+  Grid,
+  Button,
+  Row,
+  Col,
+  Panel,
+  Form,
+  FormControl,
+  ControlLabel,
+  Navbar,
+  Nav,
+  NavItem,
+  MenuItem,
+  NavDropdown
+} from 'react-bootstrap';
 // import {withRouter} from "react-router-dom";
 // import fakeAuth from './Common/fakeAuth';
 
@@ -13,52 +27,79 @@ class Login extends Component {
             redirectToReferrer: false
         };
         this.handleLogin = this.handleLogin.bind(this);
+        this.userLogged = this.userLogged.bind(this);
     }
+
+
+
+
+    userLogged(event){
+      this.props.onLogin(event)
+    }
+
     handleLogin(event) {
-        event.preventDefault();
+        //event.preventDefault();
         const self = this;
         const data = new FormData(event.target);
         $.ajax({
             type: 'POST',
-            url: setData,
+            url: loginPath,
+            dataType:'json',
             data: {
-                username: data.get('username'),
-                password: data.get('password')
+                _username: data.get('username'),
+                _password: data.get('password')
             },
             success: function(data){
+                //JSON.parse(data);
                 console.log(data);
-                // if(data) {
-                //     fakeAuth.authenticate(() => {
-                //         self.setState({redirectToReferrer: true});
-                //     });
-                // }
+              //console.log(data.errors);
             },
-            error: function(){
-                alert('failure');
+            error: function(error){
+              if(error.responseJSON) {
+                console.log(error.responseJSON);
+              }else{
+                self.userLogged(true);
+              }
             }
         });
 
     };
 
     render() {
-        const { from } = this.props.location.state || { from: { pathname: "/" } };
-        const { redirectToReferrer } = this.state;
-
-        if (redirectToReferrer) {
-            return <Redirect to={from} />;
-        }
-
         return (
-            <div>
-                <p>You must log in to view the page at {from.pathname}</p>
-                <form onSubmit={this.handleLogin}>
-                    <label htmlFor="username">Enter username</label>
-                    <input id="username" name="username" type="text" />
-                    <label htmlFor="password">Enter your password</label>
-                    <input id="password" name="password" type="password" />
-                    <button type="submit">Log in</button>
-                </form>
-            </div>
+              <Row>
+                <Col xs={3}></Col>
+                <Col xs={6}>
+              <Panel>
+                <Panel.Heading>Zaloguj się</Panel.Heading>
+                <Panel.Body>
+                  <Form onSubmit={e => {
+                    e.preventDefault();
+                    this.handleLogin(e);}}
+                  >
+                    <ControlLabel>Login</ControlLabel>
+                    <FormControl
+                      id="username"
+                      name="username"
+                      type="text"
+                      placeholder=""
+                    />
+                    <ControlLabel>Hasło</ControlLabel>
+                    <FormControl
+                      id="password"
+                      name="password"
+                      type="password"
+                      placeholder=""
+                    />
+                    <Col className="text-center" xs={12}>
+                      <Button type="submit">Zaloguj</Button>
+                    </Col>
+                  </Form>
+                </Panel.Body>
+              </Panel>
+                  </Col>
+                <Col xs={3}></Col>
+              </Row>
         );
     }
 }
